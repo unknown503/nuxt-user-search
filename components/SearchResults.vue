@@ -13,7 +13,6 @@ watchSyncEffect(async () => {
   const users = await searchBy(store.page, store.query, store.sortBy)
   state.users = users
   state.isLoading = false
-  console.log("render")
 })
 
 </script>
