@@ -3,7 +3,7 @@ import type { User } from "~/types/user"
 
 const SEED = 12345
 const COLS = 3
-const ROWS = 2
+const ROWS = 1
 export const RESULTS = 100
 export const PAGESIZE = COLS * ROWS
 export const users = ref<User[]>([])

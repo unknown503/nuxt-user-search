@@ -1,16 +1,27 @@
 <script lang="ts" setup>
+const props = defineProps({
+  initial: String,
+})
 const store = useSearchStore()
+const router = useRouter()
 const state = reactive({
-  query: ""
+  query: props.initial || ""
 })
 
 const onSubmit = () => {
   store.query = state.query.trim()
+  router.push({
+    query: {
+      ...(store.query.length > 1 && { q: store.query }),
+      ...(store.page > 1 && { page: store.page })
+    }
+  })
   console.log("search", store.query)
 }
 
 const handleClearQuery = () => {
   state.query = ""
+  store.query = ""
   onSubmit()
 }
 
