@@ -18,7 +18,7 @@ watchSyncEffect(async () => {
 
 </script>
 <template>
-  <ul class="grid grid-cols-3 gap-5">
+  <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
     <li v-if="state.isLoading" v-for="n in 9" :key="n">
       <SearchLoadingCard />
     </li>
