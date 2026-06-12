@@ -35,6 +35,22 @@ export const searchBy = async (page = 1, q: string, sortBy: SortBy) => {
     user.email.toLowerCase().includes(q.toLowerCase())
   )
 
+  if (sortBy === 'ASC') {
+    filtered.sort((a, b) =>
+      `${a.name.first} ${a.name.last}`.localeCompare(
+        `${b.name.first} ${b.name.last}`
+      )
+    )
+  }
+
+  if (sortBy === 'DESC') {
+    filtered.sort((a, b) =>
+      `${b.name.first} ${b.name.last}`.localeCompare(
+        `${a.name.first} ${a.name.last}`
+      )
+    )
+  }
+
   const paginated = paginate(filtered, page)
   return { users: paginated, total: filtered.length }
 }

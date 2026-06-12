@@ -1,16 +1,11 @@
 <script setup lang="ts">
 const store = useSearchStore()
-const router = useRouter()
-const route = useRoute()
+const { handleQueryParams } = useQuerySearch()
+
 
 const onUpdate = () => {
   scrollTo({ top: 0, behavior: "smooth" })
-  router.push({
-    query: {
-      ...route.query,
-      page: store.page === 1 ? undefined : store.page
-    }
-  })
+  handleQueryParams()
 }
 
 </script>

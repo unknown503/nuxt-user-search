@@ -2,32 +2,23 @@
 const props = defineProps({
   initial: String,
 })
-const store = useSearchStore()
-const router = useRouter()
+const { handleQueryParams } = useQuerySearch()
 const state = reactive({
-  query: props.initial || ""
+  query: ""
 })
 
-const onSubmit = () => {
-  store.page = 1
-  store.query = state.query
-  router.push({
-    query: {
-      ...(store.query.length > 1 && { q: store.query }),
-      ...(store.page > 1 && { page: store.page })
-    }
-  })
-}
+watchEffect(() => {
+  state.query = props.initial || ""
+})
 
 const handleClearQuery = () => {
   state.query = ""
-  store.query = ""
-  onSubmit()
+  handleQueryParams("", 1, "RELEVANCE")
 }
 
 </script>
 <template>
-  <UForm :state="state" @submit.prevent="onSubmit" class="flex gap-2 md:gap-5">
+  <UForm :state="state" @submit.prevent="handleQueryParams(state.query, 1, 'RELEVANCE')" class="flex gap-2 md:gap-5">
     <UInput v-model.trim="state.query" color="secondary" variant="subtle" placeholder="Search" class="w-full" size="xl">
       <template v-if="state.query" #trailing>
         <UButton color="neutral" variant="link" size="sm" icon="i-lucide-x" aria-label="Clear input"
