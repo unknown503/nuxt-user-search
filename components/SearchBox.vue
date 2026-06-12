@@ -13,7 +13,7 @@ watchEffect(() => {
 
 const handleClearQuery = () => {
   state.query = ""
-  handleQueryParams("", 1, "RELEVANCE")
+  handleQueryParams("", 1, "RELEVANCE", "all")
 }
 
 </script>
@@ -25,7 +25,7 @@ const handleClearQuery = () => {
           class="cursor-pointer" @click="handleClearQuery" />
       </template>
     </UInput>
-    <UButton color="secondary" variant="solid" icon="i-lucide-search" size="xl" class="shrink-0 cursor-pointer"
+    <UButton color="secondary" variant="solid" icon="i-lucide-search" size="md" class="shrink-0 cursor-pointer"
       type="submit">
       <span class="hidden md:block">Search post</span>
     </UButton>

@@ -1,5 +1,6 @@
 import type { SortBy } from "~/types/search"
 import type { User } from "~/types/user"
+import { slugify } from "./util"
 
 const SEED = 12345
 const COLS = 3
@@ -23,17 +24,29 @@ const fetchUsers = async () => {
   return data.results as User[]
 }
 
+export const getCountries = () => {
+  const countries = new Set(users.value.map(user => user.location.country))
+  return Array.from(countries).sort()
+}
+
 const paginate = (users: User[], page = 1) => {
   const start = (page - 1) * PAGESIZE
   return users.slice(start, start + PAGESIZE)
 }
 
-export const searchBy = async (page = 1, q: string, sortBy: SortBy) => {
-  const filtered = users.value.filter(user =>
-    user.name.first.toLowerCase().includes(q.toLowerCase()) ||
-    user.name.last.toLowerCase().includes(q.toLowerCase()) ||
-    user.email.toLowerCase().includes(q.toLowerCase())
-  )
+export const searchBy = async (page = 1, q: string, sortBy: SortBy, country: string) => {
+  const filtered = users.value.filter(user => {
+    const matchesSearch =
+      user.name.first.toLowerCase().includes(q.toLowerCase()) ||
+      user.name.last.toLowerCase().includes(q.toLowerCase()) ||
+      user.email.toLowerCase().includes(q.toLowerCase())
+
+    const matchesCountry =
+      country === 'all' ||
+      slugify(user.location.country) === country
+
+    return matchesSearch && matchesCountry
+  })
 
   if (sortBy === 'ASC') {
     filtered.sort((a, b) =>

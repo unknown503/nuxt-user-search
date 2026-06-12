@@ -2,7 +2,6 @@
 const store = useSearchStore()
 const { handleQueryParams } = useQuerySearch()
 
-
 const onUpdate = () => {
   scrollTo({ top: 0, behavior: "smooth" })
   handleQueryParams()

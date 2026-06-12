@@ -13,9 +13,9 @@ const state = reactive({
 })
 
 watchEffect(async () => {
-  if (!props.hasLoaded) return
   state.isLoading = true
-  const { users, total } = await searchBy(store.page, store.query, store.sortBy)
+  if (!props.hasLoaded) return
+  const { users, total } = await searchBy(store.page, store.query, store.sortBy, store.country)
   state.users = users
   state.isLoading = false
   store.total = total

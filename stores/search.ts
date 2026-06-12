@@ -7,6 +7,7 @@ export const useSearchStore = defineStore('search', {
     query: "",
     page: 1,
     sortBy: "RELEVANCE" as SortBy,
+    country: "all",
     total: RESULTS
   }),
   getters: {
