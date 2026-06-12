@@ -16,5 +16,6 @@ onBeforeMount(() => {
     <SearchInfo />
     <USeparator />
     <SearchResults />
+    <Pagination />
   </div>
 </template>

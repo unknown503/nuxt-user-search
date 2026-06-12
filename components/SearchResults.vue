@@ -10,10 +10,10 @@ const state = reactive({
 
 watchSyncEffect(async () => {
   state.isLoading = true
-  store.page = 1
-  const users = await searchBy(store.page, store.query, store.sortBy)
+  const { users, total } = await searchBy(store.page, store.query, store.sortBy)
   state.users = users
   state.isLoading = false
+  store.total = total
 })
 
 </script>

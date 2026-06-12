@@ -9,14 +9,14 @@ const state = reactive({
 })
 
 const onSubmit = () => {
-  store.query = state.query.trim()
+  store.page = 1
+  store.query = state.query
   router.push({
     query: {
       ...(store.query.length > 1 && { q: store.query }),
       ...(store.page > 1 && { page: store.page })
     }
   })
-  console.log("search", store.query)
 }
 
 const handleClearQuery = () => {
@@ -28,7 +28,7 @@ const handleClearQuery = () => {
 </script>
 <template>
   <UForm :state="state" @submit.prevent="onSubmit" class="flex gap-2 md:gap-5">
-    <UInput v-model="state.query" color="secondary" variant="subtle" placeholder="Search" class="w-full" size="xl">
+    <UInput v-model.trim="state.query" color="secondary" variant="subtle" placeholder="Search" class="w-full" size="xl">
       <template v-if="state.query" #trailing>
         <UButton color="neutral" variant="link" size="sm" icon="i-lucide-x" aria-label="Clear input"
           class="cursor-pointer" @click="handleClearQuery" />

@@ -3,7 +3,7 @@ import type { User } from "~/types/user"
 
 const SEED = 12345
 const COLS = 3
-const ROWS = 1
+const ROWS = 4
 export const RESULTS = 100
 export const PAGESIZE = COLS * ROWS
 export const users = ref<User[]>([])
@@ -29,8 +29,6 @@ const paginate = (users: User[], page = 1) => {
 }
 
 export const searchBy = async (page = 1, q: string, sortBy: SortBy) => {
-  console.log({ page, q, sortBy, users: users.value })
-
   const filtered = users.value.filter(user =>
     user.name.first.toLowerCase().includes(q.toLowerCase()) ||
     user.name.last.toLowerCase().includes(q.toLowerCase()) ||
@@ -38,5 +36,5 @@ export const searchBy = async (page = 1, q: string, sortBy: SortBy) => {
   )
 
   const paginated = paginate(filtered, page)
-  return paginated
+  return { users: paginated, total: filtered.length }
 }
